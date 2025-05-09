@@ -8,40 +8,16 @@ CHIP DecoderSegment201849171 {
     Not(in=C, out=notC);
     Not(in=D, out=notD);
 
-    // Segment d terms for digits: 0, 2, 3, 5, 6, 8, 9
+    And(a=notB, b=notD, out=termD1);
+    And(a=notB, b=notC, out=termD2);
 
-    And(a=notA, b=notB, out=termDp1);
-    And(a=termDp1, b=notC, out=termDp1b);
-    And(a=termDp1b, b=notD, out=termD1); // digit 0
+    And(a=notA, b=notC, out=termD3p1);
+    And(a=termD3p1, b=D, out=termD3);
 
-    And(a=notA, b=notB, out=termDp2);
-    And(a=termDp2, b=C, out=termDp2b);
-    And(a=termDp2b, b=notD, out=termD2); // digit 2
-
-    And(a=notA, b=notB, out=termDp3);
-    And(a=termDp3, b=C, out=termDp3b);
-    And(a=termDp3b, b=D, out=termD3); // digit 3
-
-    And(a=notA, b=B, out=termDp4);
-    And(a=termDp4, b=notC, out=termDp4b);
-    And(a=termDp4b, b=D, out=termD4); // digit 5
-
-    And(a=notA, b=B, out=termDp5);
-    And(a=termDp5, b=C, out=termDp5b);
-    And(a=termDp5b, b=notD, out=termD5); // digit 6
-
-    And(a=A, b=notB, out=termDp6);
-    And(a=termDp6, b=notC, out=termDp6b);
-    And(a=termDp6b, b=notD, out=termD6); // digit 8
-
-    And(a=A, b=notB, out=termDp7);
-    And(a=termDp7, b=notC, out=termDp7b);
-    And(a=termDp7b, b=D, out=termD7); // digit 9
+    And(a=notA, b=C, out=termD4p1);
+    And(a=termD4p1, b=notD, out=termD4);
 
     Or(a=termD1, b=termD2, out=interD1);
     Or(a=termD3, b=termD4, out=interD2);
-    Or(a=termD5, b=termD6, out=interD3);
-    Or(a=interD1, b=interD2, out=interD4);
-    Or(a=interD3, b=termD7, out=interD5);
-    Or(a=interD4, b=interD5, out=d);
+    Or(a=interD1, b=interD2, out=d);
 }
