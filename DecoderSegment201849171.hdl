@@ -3,43 +3,51 @@ CHIP DecoderSegment201849171 {
     OUT d;
 
     PARTS:
-    Not(in=A, out=notA);
-    Not(in=B, out=notB);
-    Not(in=C, out=notC);
-    Not(in=D, out=notD);
+    Not(in=A, out=na);
+    Not(in=B, out=nb);
+    Not(in=C, out=nc);
+    Not(in=D, out=nd);
 
-    And(a=notA, b=notB, out=dp1);
-    And(a=dp1, b=notC, out=dp1b);
-    And(a=dp1b, b=notD, out=termD0);  // 0000
+    // 0000 -> 0
+    And(a=na, b=nb, out=t0_1);
+    And(a=t0_1, b=nc, out=t0_2);
+    And(a=t0_2, b=nd, out=term0);
 
-    And(a=notA, b=notB, out=dp2);
-    And(a=dp2, b=C, out=dp2b);
-    And(a=dp2b, b=notD, out=termD2);  // 0010
+    // 0010 -> 2
+    And(a=na, b=nb, out=t2_1);
+    And(a=t2_1, b=C, out=t2_2);
+    And(a=t2_2, b=nd, out=term2);
 
-    And(a=notA, b=notB, out=dp3);
-    And(a=dp3, b=C, out=dp3b);
-    And(a=dp3b, b=D, out=termD3);  // 0011
+    // 0011 -> 3
+    And(a=na, b=nb, out=t3_1);
+    And(a=t3_1, b=C, out=t3_2);
+    And(a=t3_2, b=D, out=term3);
 
-    And(a=notA, b=B, out=dp4);
-    And(a=dp4, b=notC, out=dp4b);
-    And(a=dp4b, b=D, out=termD5);  // 0101
+    // 0101 -> 5
+    And(a=na, b=B, out=t5_1);
+    And(a=t5_1, b=nc, out=t5_2);
+    And(a=t5_2, b=D, out=term5);
 
-    And(a=notA, b=B, out=dp5);
-    And(a=dp5, b=C, out=dp5b);
-    And(a=dp5b, b=notD, out=termD6);  // 0110
+    // 0110 -> 6
+    And(a=na, b=B, out=t6_1);
+    And(a=t6_1, b=C, out=t6_2);
+    And(a=t6_2, b=nd, out=term6);
 
-    And(a=A, b=notB, out=dp6);
-    And(a=dp6, b=notC, out=dp6b);
-    And(a=dp6b, b=notD, out=termD8);  // 1000
+    // 1000 -> 8
+    And(a=A, b=nb, out=t8_1);
+    And(a=t8_1, b=nc, out=t8_2);
+    And(a=t8_2, b=nd, out=term8);
 
-    And(a=A, b=notB, out=dp7);
-    And(a=dp7, b=notC, out=dp7b);
-    And(a=dp7b, b=D, out=termD9);  // 1001
+    // 1001 -> 9
+    And(a=A, b=nb, out=t9_1);
+    And(a=t9_1, b=nc, out=t9_2);
+    And(a=t9_2, b=D, out=term9);
 
-    Or(a=termD0, b=termD2, out=interD1);
-    Or(a=termD3, b=termD5, out=interD2);
-    Or(a=termD6, b=termD8, out=interD3);
-    Or(a=termD9, b=interD1, out=interD4);
-    Or(a=interD2, b=interD3, out=interD5);
-    Or(a=interD4, b=interD5, out=d);
+    // Combine with ORs
+    Or(a=term0, b=term2, out=o1);
+    Or(a=term3, b=term5, out=o2);
+    Or(a=term6, b=term8, out=o3);
+    Or(a=term9, b=o1, out=o4);
+    Or(a=o2, b=o3, out=o5);
+    Or(a=o4, b=o5, out=d);
 }
