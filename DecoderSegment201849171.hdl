@@ -1,0 +1,34 @@
+    And(a=notA, b=notB, out=termDp1);
+    And(a=termDp1, b=notC, out=termDp1b);
+    And(a=termDp1b, b=notD, out=termD1); // 0
+
+    And(a=notA, b=notB, out=termDp2);
+    And(a=termDp2, b=C, out=termDp2b);
+    And(a=termDp2b, b=notD, out=termD2); // 2
+
+    And(a=notA, b=notB, out=termDp3);
+    And(a=termDp3, b=C, out=termDp3b);
+    And(a=termDp3b, b=D, out=termD3); // 3
+
+    And(a=notA, b=B, out=termDp4);
+    And(a=termDp4, b=notC, out=termDp4b);
+    And(a=termDp4b, b=D, out=termD4); // 5
+
+    And(a=notA, b=B, out=termDp5);
+    And(a=termDp5, b=C, out=termDp5b);
+    And(a=termDp5b, b=notD, out=termD5); // 6
+
+    And(a=A, b=notB, out=termDp6);
+    And(a=termDp6, b=notC, out=termDp6b);
+    And(a=termDp6b, b=notD, out=termD6); // 8
+
+    And(a=A, b=notB, out=termDp7);
+    And(a=termDp7, b=notC, out=termDp7b);
+    And(a=termDp7b, b=D, out=termD7); // 9
+
+    Or(a=termD1, b=termD2, out=interD1);
+    Or(a=termD3, b=termD4, out=interD2);
+    Or(a=termD5, b=termD6, out=interD3);
+    Or(a=termD7, b=interD1, out=interD4);
+    Or(a=interD2, b=interD3, out=interD5);
+    Or(a=interD4, b=interD5, out=d);
