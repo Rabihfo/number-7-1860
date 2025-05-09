@@ -1,17 +1,17 @@
 CHIP DecoderSegment201849171 {
-    IN A, B, C, D;
+    IN A, C, D, h, j, k, l;
     OUT d;
 
     PARTS:
-And(a=j, b=h, out=xg);        
-And(a=l, b=D, out=yg);
-And(a=yg, b=j, out=zg);
-And(a=A, b=C, out=mg);
-And(a=A, b=k, out=ng);
-And(a=D, b=h, out=og);
+    And(a=j, b=h, out=termD1);
+    And(a=l, b=D, out=termD2);
+    And(a=termD2, b=j, out=termD3);
+    And(a=A, b=C, out=termD4);
+    And(a=A, b=k, out=termD5);
+    And(a=D, b=h, out=termD6);
 
-Or(a=xg, b=zg, out=pg);
-Or(a=pg, b=mg, out=qg);
-Or(a=qg, b=ng, out=rg);
-Or(a=rg, b=og, out=d);
+    Or(a=termD1, b=termD3, out=interD1);
+    Or(a=interD1, b=termD4, out=interD2);
+    Or(a=interD2, b=termD5, out=interD3);
+    Or(a=interD3, b=termD6, out=d);
 }
