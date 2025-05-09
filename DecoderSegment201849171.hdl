@@ -15,5 +15,4 @@ Or(a=termD3, b=termD4, out=interD2);
 Or(a=termD5, b=termD6, out=interD3);
 
 Or(a=interD1, b=interD2, out=interD4);
-Or(a=interD3, b=interD4, out=d);
-}
+Or(a=interD3, b=interD4, out=d); }
