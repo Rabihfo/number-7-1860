@@ -3,21 +3,43 @@ CHIP DecoderSegment201849171 {
     OUT d;
 
     PARTS:
-    Not(in=A, out=l);
-    Not(in=B, out=k);
-    Not(in=C, out=j);
-    Not(in=D, out=h);
+    Not(in=A, out=notA);
+    Not(in=B, out=notB);
+    Not(in=C, out=notC);
+    Not(in=D, out=notD);
 
-    And(a=k, b=h, out=xd);     // segment d
-    And(a=l, b=k, out=yd);
-    And(a=yd, b=D, out=zd);
-    And(a=B, b=j, out=md);
-    And(a=md, b=h, out=nd);
-    And(a=A, b=k, out=pd);
-    And(a=A, b=C, out=qd);
+    And(a=notA, b=notB, out=dp1);
+    And(a=dp1, b=notC, out=dp1b);
+    And(a=dp1b, b=notD, out=termD0);  // 0000
 
-    Or(a=xd, b=zd, out=rd);
-    Or(a=rd, b=nd, out=sd);
-    Or(a=sd, b=pd, out=td);
-    Or(a=td, b=qd, out=d);
+    And(a=notA, b=notB, out=dp2);
+    And(a=dp2, b=C, out=dp2b);
+    And(a=dp2b, b=notD, out=termD2);  // 0010
+
+    And(a=notA, b=notB, out=dp3);
+    And(a=dp3, b=C, out=dp3b);
+    And(a=dp3b, b=D, out=termD3);  // 0011
+
+    And(a=notA, b=B, out=dp4);
+    And(a=dp4, b=notC, out=dp4b);
+    And(a=dp4b, b=D, out=termD5);  // 0101
+
+    And(a=notA, b=B, out=dp5);
+    And(a=dp5, b=C, out=dp5b);
+    And(a=dp5b, b=notD, out=termD6);  // 0110
+
+    And(a=A, b=notB, out=dp6);
+    And(a=dp6, b=notC, out=dp6b);
+    And(a=dp6b, b=notD, out=termD8);  // 1000
+
+    And(a=A, b=notB, out=dp7);
+    And(a=dp7, b=notC, out=dp7b);
+    And(a=dp7b, b=D, out=termD9);  // 1001
+
+    Or(a=termD0, b=termD2, out=interD1);
+    Or(a=termD3, b=termD5, out=interD2);
+    Or(a=termD6, b=termD8, out=interD3);
+    Or(a=termD9, b=interD1, out=interD4);
+    Or(a=interD2, b=interD3, out=interD5);
+    Or(a=interD4, b=interD5, out=d);
 }
