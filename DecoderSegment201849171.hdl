@@ -2,52 +2,11 @@ CHIP DecoderSegment201849171 {
     IN A, B, C, D;
     OUT d;
 
-    PARTS:
-    Not(in=A, out=na);
-    Not(in=B, out=nb);
-    Not(in=C, out=nc);
-    Not(in=D, out=nd);
+PARTS:
+And (a=A, b=B, out=termDp1);
+And (a=termDp1, b=notC, out=termDp2);
+And (a=termDp2, b=D, out=termDp3);
 
-    // 0000 -> 0
-    And(a=na, b=nb, out=t0_1);
-    And(a=t0_1, b=nc, out=t0_2);
-    And(a=t0_2, b=nd, out=term0);
-
-    // 0010 -> 2
-    And(a=na, b=nb, out=t2_1);
-    And(a=t2_1, b=C, out=t2_2);
-    And(a=t2_2, b=nd, out=term2);
-
-    // 0011 -> 3
-    And(a=na, b=nb, out=t3_1);
-    And(a=t3_1, b=C, out=t3_2);
-    And(a=t3_2, b=D, out=term3);
-
-    // 0101 -> 5
-    And(a=na, b=B, out=t5_1);
-    And(a=t5_1, b=nc, out=t5_2);
-    And(a=t5_2, b=D, out=term5);
-
-    // 0110 -> 6
-    And(a=na, b=B, out=t6_1);
-    And(a=t6_1, b=C, out=t6_2);
-    And(a=t6_2, b=nd, out=term6);
-
-    // 1000 -> 8
-    And(a=A, b=nb, out=t8_1);
-    And(a=t8_1, b=nc, out=t8_2);
-    And(a=t8_2, b=nd, out=term8);
-
-    // 1001 -> 9
-    And(a=A, b=nb, out=t9_1);
-    And(a=t9_1, b=nc, out=t9_2);
-    And(a=t9_2, b=D, out=term9);
-
-    // Combine with ORs
-    Or(a=term0, b=term2, out=o1);
-    Or(a=term3, b=term5, out=o2);
-    Or(a=term6, b=term8, out=o3);
-    Or(a=term9, b=o1, out=o4);
-    Or(a=o2, b=o3, out=o5);
-    Or(a=o4, b=o5, out=d);
+Or (a=notA, b=notB, out=interD1);
+ Or (a=interD1, b=termDp3, out=d);
 }
