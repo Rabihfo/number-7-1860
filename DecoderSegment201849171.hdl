@@ -14,3 +14,4 @@ Or(a=xg, b=zg, out=pg);
 Or(a=pg, b=mg, out=qg);
 Or(a=qg, b=ng, out=rg);
 Or(a=rg, b=og, out=d);
+}
